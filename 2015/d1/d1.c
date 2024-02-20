@@ -16,7 +16,7 @@
 
 /* -------------------------------- */
 
-int d1(void)
+void d1(void)
 {
     char c = 0;
     int32_t sum = 0;
@@ -56,5 +56,4 @@ int d1(void)
             de10_lite_7seg_write_signed_dec(sum);
         }
     }
-    return 0;
 }

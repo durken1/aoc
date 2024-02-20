@@ -16,7 +16,7 @@
 
 /* -------------------------------- */
 
-int d2(void)
+void d2(void)
 {
     char c = 1;
     int i = 0;
@@ -76,5 +76,4 @@ int d2(void)
             }
         }
     }
-    return 0;
 }

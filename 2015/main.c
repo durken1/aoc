@@ -41,6 +41,11 @@
 int main()
 {
   neorv32_rte_setup();
+
+  void (*fp[2]) (void);
+  fp[0] = d1;
+  fp[1] = d2;
+
   while (1)
   {
 
@@ -49,19 +54,14 @@ int main()
     PRINT_PUTC(day); // echo
     PRINT_TEXT("\n");
 
-    if (day == '1')
+    if (day > '2' || day < '1')
     {
-      PRINT_TEXT("Upload input\n");
-      d1();
-    }
-    else if (day == '2')
-    {
-      PRINT_TEXT("Upload input\n");
-      d2();
+      PRINT_TEXT("Not there yet\n");
     }
     else
     {
-      PRINT_TEXT("Not there yet\n");
+      PRINT_TEXT("Upload input\n");
+      (*fp[day-'0'])();
     }
 
   } // while(1)
