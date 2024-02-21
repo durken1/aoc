@@ -19,35 +19,25 @@
 void d3(void)
 {
     char c = 0;
-    int matrix[14][14] = {0};
-    int xy[2] = {98, 98};
+    int toggle = 0;
+    uint32_t n_houses = 0;
     while (1)
     {
         c = PRINT_GETC();
-        switch (c)
+        de10_lite_7seg_enable_loading();
+        if (c != 0x0A)
         {
-        case '<':
-
-            break;
-
-        case '>':
-
-            break;
-
-        case 'v':
-
-            break;
-
-        case '^':
-
-            break;
-        
-        default:
-            while(1)
+            toggle = ~toggle;
+            de10_lite_move_santa(c, toggle);
+        }
+        else
+        {
+            n_houses = de10_lite_get_n_houses();
+            while (1)
             {
-                if(neorv32_gpio_pin_get(2) != 0)
+                if (neorv32_gpio_pin_get(2) != 0)
                 {
-                    de10_lite_7seg_write_signed_dec(0);
+                    de10_lite_7seg_write_signed_dec(n_houses);
                 }
                 else
                 {
