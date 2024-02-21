@@ -32,7 +32,7 @@
 /* -------------------------------- */
 
 /************************************************************************
- * Main function; shows an incrementing 8-bit counter on GPIO.output(7:0).
+ * Main function; Choose day
  *
  * @note This program requires the GPIO controller to be synthesized.
  *
@@ -42,9 +42,10 @@ int main()
 {
   neorv32_rte_setup();
 
-  void (*fp[2]) (void);
+  void (*fp[3]) (void);
   fp[0] = d1;
   fp[1] = d2;
+  fp[2] = d3;
 
   while (1)
   {
@@ -54,14 +55,14 @@ int main()
     PRINT_PUTC(day); // echo
     PRINT_TEXT("\n");
 
-    if (day > '2' || day < '1')
+    if (day > '3' || day < '1')
     {
-      PRINT_TEXT("Not there yet\n");
+      PRINT_TEXT("Invalid input\n");
     }
     else
     {
       PRINT_TEXT("Upload input\n");
-      (*fp[day-'0'])();
+      (*fp[day-'1'])();
     }
 
   } // while(1)
