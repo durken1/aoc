@@ -21,18 +21,37 @@ void d3(void)
     char c = 0;
     int toggle = 0;
     uint32_t n_houses = 0;
+    uint32_t direction = 0;
     while (1)
     {
         c = PRINT_GETC();
         de10_lite_7seg_enable_loading();
         if (c != 0x0A)
         {
+            switch (c)
+            {
+            case 0x3E:
+                direction = 0x00000000;
+                break;
+
+            case 0x3C:
+                direction = 0x00000001;
+                break;
+
+            case 0x5E:
+                direction = 0x00000002;
+                break;
+
+            case 0x76:
+                direction = 0x00000003;
+                break;
+            }
             toggle = ~toggle;
-            de10_lite_move_santa(c, toggle);
+            neorv32_cpu_store_unsigned_word(0x90000008, ((toggle & (1 << 2)) | direction));
         }
         else
         {
-            n_houses = de10_lite_get_n_houses();
+            n_houses = neorv32_cpu_load_unsigned_word(0x90000000);
             while (1)
             {
                 if (neorv32_gpio_pin_get(2) != 0)
